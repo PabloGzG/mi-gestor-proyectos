@@ -6,19 +6,72 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="estilos.css">
 </head>
-<body class="bg-gray-100 min-h-screen font-sans text-gray-800">
-    <h1>Mis Proyectos Realizados</h1>
+<body class="bg-gradient-to-br from-slate-50 via-slate-100 to-indigo-50 min-h-screen font-sans text-slate-800 flex items-center justify-center p-4">
 
-    <!-- Formulario para crear un nuevo proyecto -->
-    <form id="formulario-proyecto">
-        <input type="text" id="nombre-input" placeholder="Nombre del proyecto" required>
-        <button type="submit">Agregar Proyecto</button>
-    </form>
 
-    <!-- Contenedor donde JavaScript pintará los proyectos del servidor -->
-    <div id="lista-proyectos">
-        <!-- Las tarjetas de los proyectos se cargarán aquí dinámicamente -->
+    <!-- PANTALLA DE LOGIN Y REGISTRO (Ocultará el resto si no hay sesión) -->
+  <!-- 1. CONTENEDOR DE AUTENTICACIÓN (LOGIN/REGISTRO) -->
+    <div id="seccion-auth" class="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl border border-slate-100/80 transition-all">
+        <!-- Icono Decorativo -->
+        <div class="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center mb-6 mx-auto">
+            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+        </div>
+        
+        <h2 id="auth-titulo" class="text-2xl font-extrabold text-slate-900 mb-2 text-center tracking-tight">Iniciar Sesión</h2>
+        <p class="text-sm text-slate-500 text-center mb-8">Ingresa tus credenciales para acceder a tu tablero privado</p>
+        
+        <form id="formulario-auth" class="flex flex-col gap-5">
+            <div>
+                <label class="text-xs font-semibold text-slate-700 block mb-1.5 uppercase tracking-wider">Correo Electrónico</label>
+                <input type="email" id="auth-email" placeholder="nombre@ejemplo.com" required 
+                       class="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none bg-slate-50/50 transition-all">
+            </div>
+            <div>
+                <label class="text-xs font-semibold text-slate-700 block mb-1.5 uppercase tracking-wider">Contraseña</label>
+                <input type="password" id="auth-password" placeholder="••••••••" required 
+                       class="w-full px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none bg-slate-50/50 transition-all">
+            </div>
+            <button type="submit" id="btn-auth-principal" 
+                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 rounded-xl text-sm shadow-md shadow-indigo-200 hover:shadow-lg transition-all mt-2">
+                Ingresar
+            </button>
+        </form>
+        
+        <p class="text-sm text-center text-slate-500 mt-6">
+            ¿No tienes cuenta? <button id="btn-cambiar-modo" class="text-indigo-600 font-bold hover:text-indigo-800 hover:underline transition-colors">Regístrate aquí</button>
+        </p>
     </div>
+
+
+    <div id="seccion-proyectos" class="w-full max-w-4xl bg-transparent hidden my-6">
+
+               <!-- En tu public/index.html, dentro de <div id="seccion-proyectos" class="hidden"> -->
+        <div class="flex justify-between items-center mb-8 bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+            <h1 class="text-xl font-black text-slate-900 tracking-tight flex items-center gap-2">
+                <span class="text-2xl">📊</span> GESTOR DE PROYECTOS
+            </h1>
+            <button id="btn-logout" class="bg-rose-50 hover:bg-rose-100 text-rose-600 font-semibold px-4 py-2 rounded-xl text-xs tracking-wide uppercase transition-all border border-rose-100 flex items-center gap-1.5">
+                Salir
+            </button>
+        </div>
+<!-- Formulario para crear un nuevo proyecto -->
+        <form id="formulario-proyecto" class="flex gap-3 bg-white p-4 rounded-2xl shadow-sm border border-slate-100 mb-8">
+            <input type="text" id="nombre-input" placeholder="Escribe un proyecto..." required
+                   class="flex-1 px-4 py-2.5 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-slate-50/50">
+            <button type="submit" 
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition-all shadow-md shadow-indigo-100">
+                Agregar Proyecto
+            </button>
+        </form>
+                
+        <!-- Contenedor donde JavaScript pintará los proyectos del servidor -->
+        <div id="lista-proyectos" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <h1 class="proy-title">Mis proyectos</h1>
+            <!-- Las tarjetas de los proyectos se cargarán aquí dinámicamente -->
+        </div>
+        
+    </div>
+
     <script src="app.js"></script>
     
 </body>

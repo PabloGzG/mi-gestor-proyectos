@@ -1,13 +1,13 @@
 const { Sequelize, DataTypes } = require('sequelize');
 
-// 1. Inicializamos SQLite. Creará un archivo llamado 'datos.sqlite'
+// Inicializamos SQLite. Creará un archivo llamado 'datos.sqlite'
 const sequelize = new Sequelize({
   dialect: 'sqlite',
   storage: './datos.sqlite',
   logging: false // Evita textos basura en la terminal
 });
 
-// 2. Definimos la estructura de nuestra tabla de Proyectos
+// NUEVO: Modelo de Usuario Proyecto
 const Proyecto = sequelize.define('Proyecto', {
   nombre: {
     type: DataTypes.STRING,
@@ -19,5 +19,21 @@ const Proyecto = sequelize.define('Proyecto', {
   }
 });
 
-// Exportamos las herramientas para usarlas en server.js
-module.exports = { sequelize, Proyecto };
+// NUEVO: Modelo de Usuario
+const Usuario = sequelize.define('Usuario', {
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true // No permite dos usuarios con el mismo correo
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+});
+
+// NUEVO: Definimos la relación (Un Proyecto pertenece a un Usuario)
+Proyecto.belongsTo(Usuario);
+
+// Exportamos ambos modelos
+module.exports = { sequelize, Proyecto, Usuario };
